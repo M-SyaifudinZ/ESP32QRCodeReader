@@ -58,8 +58,8 @@ QRCodeReaderSetupErr ESP32QRCodeReader::setup()
   cameraConfig.pixel_format = PIXFORMAT_GRAYSCALE;
 
   //cameraConfig.frame_size = FRAMESIZE_VGA;
-  cameraConfig.frame_size = frameSize;
-  cameraConfig.jpeg_quality = 15;
+  cameraConfig.frame_size = FRAMESIZE_QVGA;
+  cameraConfig.jpeg_quality = 10;
   cameraConfig.fb_count = 2;
 
 #if defined(CAMERA_MODEL_ESP_EYE)
@@ -73,6 +73,11 @@ QRCodeReaderSetupErr ESP32QRCodeReader::setup()
   {
     return SETUP_CAMERA_INIT_ERROR;
   }
+  sensor_t * s = esp_camera_sensor_get();
+  s->set_vflip(s, 0);        //1-Upside down, 0-No operation
+  s->set_hmirror(s, 0);      //1-Reverse left and right, 0-No operation
+  s->set_brightness(s, 1);   //up the blightness just a bit
+  s->set_saturation(s, -1);  //lower the saturation
   return SETUP_OK;
 }
 
