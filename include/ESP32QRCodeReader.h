@@ -38,6 +38,7 @@ private:
 
 public:
   camera_config_t cameraConfig;
+  camera_fb_t *_self_fb;
   QueueHandle_t qrCodeQueue;
   bool begun = false;
   bool debug = false;
@@ -55,6 +56,7 @@ public:
   void begin();
   void beginOnCore(BaseType_t core);
   bool receiveQrCode(struct QRCodeData *qrCodeData, long timeoutMs);
+  camera_fb_t* getLastFrameBuffer();
   void end();
 
   void setDebug(bool);

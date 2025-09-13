@@ -3,11 +3,11 @@
 #include "quirc/quirc.h"
 #include "Arduino.h"
 
-ESP32QRCodeReader::ESP32QRCodeReader() : ESP32QRCodeReader(CAMERA_MODEL_AI_THINKER, FRAMESIZE_QVGA)
+ESP32QRCodeReader::ESP32QRCodeReader() : ESP32QRCodeReader(CAMERA_MODEL_WROVER_KITS, FRAMESIZE_QVGA)
 {
 }
 
-ESP32QRCodeReader::ESP32QRCodeReader(framesize_t frameSize) : ESP32QRCodeReader(CAMERA_MODEL_AI_THINKER, frameSize)
+ESP32QRCodeReader::ESP32QRCodeReader(framesize_t frameSize) : ESP32QRCodeReader(CAMERA_MODEL_WROVER_KITS, frameSize)
 {
 }
 
@@ -25,6 +25,10 @@ ESP32QRCodeReader::~ESP32QRCodeReader()
   end();
 }
 
+camera_fb_t* ESP32QRCodeReader::getLastFrameBuffer() {
+  return _self_fb;
+}
+
 QRCodeReaderSetupErr ESP32QRCodeReader::setup()
 {
   if (!psramFound())
@@ -34,29 +38,29 @@ QRCodeReaderSetupErr ESP32QRCodeReader::setup()
 
   cameraConfig.ledc_channel = LEDC_CHANNEL_0;
   cameraConfig.ledc_timer = LEDC_TIMER_0;
-  cameraConfig.pin_d0 = pins.Y2_GPIO_NUM;
-  cameraConfig.pin_d1 = pins.Y3_GPIO_NUM;
-  cameraConfig.pin_d2 = pins.Y4_GPIO_NUM;
-  cameraConfig.pin_d3 = pins.Y5_GPIO_NUM;
-  cameraConfig.pin_d4 = pins.Y6_GPIO_NUM;
-  cameraConfig.pin_d5 = pins.Y7_GPIO_NUM;
-  cameraConfig.pin_d6 = pins.Y8_GPIO_NUM;
-  cameraConfig.pin_d7 = pins.Y9_GPIO_NUM;
-  cameraConfig.pin_xclk = pins.XCLK_GPIO_NUM;
-  cameraConfig.pin_pclk = pins.PCLK_GPIO_NUM;
-  cameraConfig.pin_vsync = pins.VSYNC_GPIO_NUM;
-  cameraConfig.pin_href = pins.HREF_GPIO_NUM;
-  cameraConfig.pin_sscb_sda = pins.SIOD_GPIO_NUM;
-  cameraConfig.pin_sscb_scl = pins.SIOC_GPIO_NUM;
-  cameraConfig.pin_pwdn = pins.PWDN_GPIO_NUM;
-  cameraConfig.pin_reset = pins.RESET_GPIO_NUM;
+  cameraConfig.pin_d0 = pins.Y2_GPIO_NUMS;
+  cameraConfig.pin_d1 = pins.Y3_GPIO_NUMS;
+  cameraConfig.pin_d2 = pins.Y4_GPIO_NUMS;
+  cameraConfig.pin_d3 = pins.Y5_GPIO_NUMS;
+  cameraConfig.pin_d4 = pins.Y6_GPIO_NUMS;
+  cameraConfig.pin_d5 = pins.Y7_GPIO_NUMS;
+  cameraConfig.pin_d6 = pins.Y8_GPIO_NUMS;
+  cameraConfig.pin_d7 = pins.Y9_GPIO_NUMS;
+  cameraConfig.pin_xclk = pins.XCLK_GPIO_NUMS;
+  cameraConfig.pin_pclk = pins.PCLK_GPIO_NUMS;
+  cameraConfig.pin_vsync = pins.VSYNC_GPIO_NUMS;
+  cameraConfig.pin_href = pins.HREF_GPIO_NUMS;
+  cameraConfig.pin_sscb_sda = pins.SIOD_GPIO_NUMS;
+  cameraConfig.pin_sscb_scl = pins.SIOC_GPIO_NUMS;
+  cameraConfig.pin_pwdn = pins.PWDN_GPIO_NUMS;
+  cameraConfig.pin_reset = pins.RESET_GPIO_NUMS;
   cameraConfig.xclk_freq_hz = 10000000;
   cameraConfig.pixel_format = PIXFORMAT_GRAYSCALE;
 
   //cameraConfig.frame_size = FRAMESIZE_VGA;
   cameraConfig.frame_size = frameSize;
   cameraConfig.jpeg_quality = 15;
-  cameraConfig.fb_count = 1;
+  cameraConfig.fb_count = 2;
 
 #if defined(CAMERA_MODEL_ESP_EYE)
   pinMode(13, INPUT_PULLUP);
@@ -129,6 +133,7 @@ void qrCodeDetectTask(void *taskData)
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
     fb = esp_camera_fb_get();
+    self->_self_fb = fb;
     if (!fb)
     {
       if (self->debug)
