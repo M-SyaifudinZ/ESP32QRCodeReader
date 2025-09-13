@@ -3,42 +3,42 @@
 
 struct CameraPins
 {
-  int PWDN_GPIO_NUM;
-  int RESET_GPIO_NUM;
-  int XCLK_GPIO_NUM;
-  int SIOD_GPIO_NUM;
-  int SIOC_GPIO_NUM;
-  int Y9_GPIO_NUM;
-  int Y8_GPIO_NUM;
-  int Y7_GPIO_NUM;
-  int Y6_GPIO_NUM;
-  int Y5_GPIO_NUM;
-  int Y4_GPIO_NUM;
-  int Y3_GPIO_NUM;
-  int Y2_GPIO_NUM;
-  int VSYNC_GPIO_NUM;
-  int HREF_GPIO_NUM;
-  int PCLK_GPIO_NUM;
+  int PWDN_GPIO_NUMS;
+  int RESET_GPIO_NUMS;
+  int XCLK_GPIO_NUMS;
+  int SIOD_GPIO_NUMS;
+  int SIOC_GPIO_NUMS;
+  int Y9_GPIO_NUMS;
+  int Y8_GPIO_NUMS;
+  int Y7_GPIO_NUMS;
+  int Y6_GPIO_NUMS;
+  int Y5_GPIO_NUMS;
+  int Y4_GPIO_NUMS;
+  int Y3_GPIO_NUMS;
+  int Y2_GPIO_NUMS;
+  int VSYNC_GPIO_NUMS;
+  int HREF_GPIO_NUMS;
+  int PCLK_GPIO_NUMS;
 };
 
-#define CAMERA_MODEL_WROVER_KIT \
+#define CAMERA_MODEL_WROVER_KITS \
   {                             \
-    .PWDN_GPIO_NUM = -1,        \
-    .RESET_GPIO_NUM = -1,       \
-    .XCLK_GPIO_NUM = 21,        \
-    .SIOD_GPIO_NUM = 26,        \
-    .SIOC_GPIO_NUM = 27,        \
-    .Y9_GPIO_NUM = 35,          \
-    .Y8_GPIO_NUM = 34,          \
-    .Y7_GPIO_NUM = 39,          \
-    .Y6_GPIO_NUM = 36,          \
-    .Y5_GPIO_NUM = 19,          \
-    .Y4_GPIO_NUM = 18,          \
-    .Y3_GPIO_NUM = 5,           \
-    .Y2_GPIO_NUM = 4,           \
-    .VSYNC_GPIO_NUM = 25,       \
-    .HREF_GPIO_NUM = 23,        \
-    .PCLK_GPIO_NUM = 22,        \
+    .PWDN_GPIO_NUMS = -1,        \
+    .RESET_GPIO_NUMS = -1,       \
+    .XCLK_GPIO_NUMS = 21,        \
+    .SIOD_GPIO_NUMS = 26,        \
+    .SIOC_GPIO_NUMS = 27,        \
+    .Y9_GPIO_NUMS = 35,          \
+    .Y8_GPIO_NUMS = 34,          \
+    .Y7_GPIO_NUMS = 39,          \
+    .Y6_GPIO_NUMS = 36,          \
+    .Y5_GPIO_NUMS = 19,          \
+    .Y4_GPIO_NUMS = 18,          \
+    .Y3_GPIO_NUMS = 5,           \
+    .Y2_GPIO_NUMS = 4,           \
+    .VSYNC_GPIO_NUMS = 25,       \
+    .HREF_GPIO_NUMS = 23,        \
+    .PCLK_GPIO_NUMS = 22,        \
   }
 
 #define CAMERA_MODEL_ESP_EYE \
